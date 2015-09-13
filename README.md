@@ -19,7 +19,15 @@ The script used in this repository recognises the relationship between mean and 
 instructions for loading file, Required libraries, Data in directories
 
 ##How the script works
-
+The basic steps within the script are as follows:
+1 Merge files from the training and test files to create a unified dataset (*myData*), subject index (*mySubjects*) and activity index (*myActivities*).
+2 Determine which columns are required (myColumns) and remove all others from the dataset.
+3 Bind the subject and activity indicies to the dataset and add descriptive labels to each column.
+4 Aggregate the data to determine the average of each variable grouped by activity and subject.
+5 Tag measurement names as either mean or standard deviation
+6 Gather all the measurement variables into a single column to create a tidy data set (*myTidyData*) using the long format.
+7 Separate the measurements from the mean/standard deviation tags and use this to spread the readings into columns for Mean and Standard_Deviation.
+8 Write the tidy dataset to a separate file(*TidySmartphoneData.txt*)
 
 ##References:
 * Anguita,D., Ghio,A., Oneto,L., Parra,X. and Reyes-Ortiz,J.L. A Public Domain Dataset for Human Activity Recognition Using Smartphones. 21th European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning, ESANN 2013. Bruges, Belgium 24-26 April 2013.

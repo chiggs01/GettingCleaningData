@@ -9,6 +9,10 @@
 ## selected measurements.  This file can be edited to alter the measurements 
 ## analysed.
 
+# Load required libraries
+require(stringr)
+require(tidyr)
+
 ## The Run_Analysis function requires access to the following files with the 
 ## designated paths relative to this script 
 ##  * features.txt
@@ -22,31 +26,30 @@
 ##  * activity_labels.txt
 ## It also requires the libraries "stringr" and "tidyr"
 
-#  Load required libraries
-    require(stringr)
-    require(tidyr)
-
 Run_Analysis <- function() {
     
     # Merge the training and test sets to create a unified data set
     myData <- rbind(read.table("train/X_train.txt", colClasses = "numeric"),
                 read.table("test/X_test.txt", colClasses = "numeric"))
-    myActivities <- rbind(read.table("train/y_train.txt", colClasses = "numeric"),
-                read.table("test/y_test.txt", colClasses = "numeric"))
-    mySubjects <- rbind(read.table("train/subject_train.txt", colClasses = "numeric"),
+    myActivities <- rbind(read.table("train/y_train.txt", 
+                colClasses = "numeric"), 
+                read.table("test/y_test.txt", 
+                colClasses = "numeric"))
+    mySubjects <- rbind(read.table("train/subject_train.txt", 
+                colClasses = "numeric"),
                 read.table("test/subject_test.txt", colClasses = "numeric"))
     
     # Extract only the selected measurements relating to the mean and standard  
     # deviation from each measurement
     myColumns <- as.numeric(read.table("featureColumns.csv", sep = ","))
-    myData <- myData[,myColumns]
+    myData <- myData[, myColumns]
     
     # Label the data set with descriptive variable names, adding Activities
     # and Subject variables
     names(mySubjects)[1] <- "Subject"
     names(myActivities)[1] <- "Activity"
     colTitles<-read.table("features.txt")
-    names(myData)<-colTitles[myColumns,2]
+    names(myData)<-colTitles[myColumns, 2]
     myData <- cbind(mySubjects, myActivities, myData)
     
     # Determine the average of each variable grouped by activity and
@@ -68,8 +71,8 @@ Run_Analysis <- function() {
     names(myData) <- colTitles
     
     # create an independent tidy data set 
-    myTidyData <- gather(myData, key = measurement, value = result, -Subject, 
-                -Activity)
+    myTidyData <- gather(myData, key = measurement, value = result,  
+                -c(Subject, Activity))
     myTidyData <- separate(myTidyData, measurement, into = c("Measurement", 
                 "reading"), sep = "\\.")
     myTidyData <- spread(myTidyData, key = reading, value = result)
@@ -80,8 +83,8 @@ Run_Analysis <- function() {
     myTidyData$Activity <- myLabels[myTidyData$Activity, 2]
     
     # Save independent tidy data set
-    write.table(myTidyData, file = "TidySmartphoneData.txt", row.names = FALSE, 
-                sep = "\t")
+    write.table(myTidyData, file = "TidySmartphoneData.txt",  
+                row.names = FALSE, sep = "\t")
     
     #Return screen version
     myTidyData

@@ -9,35 +9,29 @@
 ## selected measurements.  This file can be edited to alter the measurements 
 ## analysed.
 
-# Load required libraries
-require(stringr)
-require(tidyr)
 
-## The Run_Analysis function requires access to the following files with the 
-## designated paths relative to this script 
-##  * features.txt
-##  * featureColumns.csv
-##  * train/X_train.txt
-##  * train/y_train.txt
-##  * test/X_test.txt
-##  * test/y_test.txt
-##  * train/subject_train.txt
-##  * test/subject_test.txt
-##  * activity_labels.txt
-## It also requires the libraries "stringr" and "tidyr"
-
-Run_Analysis <- function() {
+run_analysis <- function() {
+    
+    # Load required libraries
+    require(stringr)
+    require(tidyr)
+    
+    # Download and uncompressed data from Internet 
+    temp <- tempfile()
+    download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",temp)
+    unzip(temp, overwrite = TRUE)
+    unlink(temp)
     
     # Merge the training and test sets to create a unified data set
     myData <- rbind(read.table("train/X_train.txt", colClasses = "numeric"),
-                read.table("test/X_test.txt", colClasses = "numeric"))
+                    read.table("test/X_test.txt", colClasses = "numeric"))
     myActivities <- rbind(read.table("train/y_train.txt", 
-                colClasses = "numeric"), 
-                read.table("test/y_test.txt", 
-                colClasses = "numeric"))
+                                     colClasses = "numeric"), 
+                          read.table("test/y_test.txt", 
+                                     colClasses = "numeric"))
     mySubjects <- rbind(read.table("train/subject_train.txt", 
-                colClasses = "numeric"),
-                read.table("test/subject_test.txt", colClasses = "numeric"))
+                                   colClasses = "numeric"),
+                        read.table("test/subject_test.txt", colClasses = "numeric"))
     
     # Extract only the selected measurements relating to the mean and standard  
     # deviation from each measurement
@@ -62,19 +56,19 @@ Run_Analysis <- function() {
     for (i in 1:length(colTitles)) {
         if (str_detect(colTitles[i], "mean()")) {
             colTitles[i] <- paste(sub("-mean()", "", colTitles[i],  
-                        fixed = TRUE), ".Mean", sep = "")
+                                      fixed = TRUE), ".Mean", sep = "")
         } else if (str_detect(colTitles[i], "std()")) {
             colTitles[i] <- paste(sub("-std()", "", colTitles[i],  
-                        fixed = TRUE), ".Standard_Deviation", sep = "")
+                                      fixed = TRUE), ".Standard_Deviation", sep = "")
         }     
     }
     names(myData) <- colTitles
     
     # create an independent tidy data set 
     myTidyData <- gather(myData, key = measurement, value = result,  
-                -c(Subject, Activity))
+                         -c(Subject, Activity))
     myTidyData <- separate(myTidyData, measurement, into = c("Measurement", 
-                "reading"), sep = "\\.")
+                                                             "reading"), sep = "\\.")
     myTidyData <- spread(myTidyData, key = reading, value = result)
     
     # Use descriptive activity names for activities in the data set 

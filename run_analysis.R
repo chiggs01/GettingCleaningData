@@ -17,32 +17,37 @@ run_analysis <- function() {
     require(tidyr)
     
     # Download and uncompressed data from Internet 
-    temp <- tempfile()
-    download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",temp)
-    unzip(temp, overwrite = TRUE)
-    unlink(temp)
-    
+    if(!file.exists("UCI HAR Dataset")) {
+        temp <- tempfile()
+        download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
+                    temp)
+        unzip(temp, overwrite = TRUE)
+        unlink(temp)
+    }
     # Merge the training and test sets to create a unified data set
-    myData <- rbind(read.table("train/X_train.txt", colClasses = "numeric"),
-                    read.table("test/X_test.txt", colClasses = "numeric"))
-    myActivities <- rbind(read.table("train/y_train.txt", 
-                                     colClasses = "numeric"), 
-                          read.table("test/y_test.txt", 
-                                     colClasses = "numeric"))
-    mySubjects <- rbind(read.table("train/subject_train.txt", 
-                                   colClasses = "numeric"),
-                        read.table("test/subject_test.txt", colClasses = "numeric"))
+    myData <- rbind(read.table("UCI HAR Dataset/train/X_train.txt", 
+                    colClasses = "numeric"), 
+                    read.table("UCI HAR Dataset/test/X_test.txt", 
+                    colClasses = "numeric"))
+    myActivities <- rbind(read.table("UCI HAR Dataset/train/y_train.txt", 
+                    colClasses = "numeric"), 
+                    read.table("UCI HAR Dataset/test/y_test.txt", 
+                    colClasses = "numeric"))
+    mySubjects <- rbind(read.table("UCI HAR Dataset/train/subject_train.txt", 
+                    colClasses = "numeric"),
+                    read.table("UCI HAR Dataset/test/subject_test.txt", 
+                    colClasses = "numeric"))
     
     # Extract only the selected measurements relating to the mean and standard  
     # deviation from each measurement
-    myColumns <- as.numeric(read.table("featureColumns.csv", sep = ","))
+    colTitles<-read.table("UCI HAR Dataset/features.txt")
+    myColumns <- grep("-(mean|std)\\(\\)", colTitles[, 2])
     myData <- myData[, myColumns]
     
     # Label the data set with descriptive variable names, adding Activities
     # and Subject variables
     names(mySubjects)[1] <- "Subject"
     names(myActivities)[1] <- "Activity"
-    colTitles<-read.table("features.txt")
     names(myData)<-colTitles[myColumns, 2]
     myData <- cbind(mySubjects, myActivities, myData)
     
@@ -56,24 +61,24 @@ run_analysis <- function() {
     for (i in 1:length(colTitles)) {
         if (str_detect(colTitles[i], "mean()")) {
             colTitles[i] <- paste(sub("-mean()", "", colTitles[i],  
-                                      fixed = TRUE), ".Mean", sep = "")
+                        fixed = TRUE), ".Mean", sep = "")
         } else if (str_detect(colTitles[i], "std()")) {
             colTitles[i] <- paste(sub("-std()", "", colTitles[i],  
-                                      fixed = TRUE), ".Standard_Deviation", sep = "")
+                        fixed = TRUE), ".Standard_Deviation", sep = "")
         }     
     }
     names(myData) <- colTitles
     
     # create an independent tidy data set 
     myTidyData <- gather(myData, key = measurement, value = result,  
-                         -c(Subject, Activity))
+                -c(Subject, Activity))
     myTidyData <- separate(myTidyData, measurement, into = c("Measurement", 
-                                                             "reading"), sep = "\\.")
+                "reading"), sep = "\\.")
     myTidyData <- spread(myTidyData, key = reading, value = result)
     
     # Use descriptive activity names for activities in the data set 
     # Note: Added after gather process to avoid error
-    myLabels <- read.table("activity_labels.txt")
+    myLabels <- read.table("UCI HAR Dataset/activity_labels.txt")
     myTidyData$Activity <- myLabels[myTidyData$Activity, 2]
     
     # Save independent tidy data set

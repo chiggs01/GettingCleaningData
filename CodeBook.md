@@ -1,24 +1,29 @@
 #Code Book
-This codebook analyses the Human Activity Recognition Using Smartphones Data Set (Anguita et al., 2013) to provide a tidy dataset for *Getting and Cleaning Data* (Leek et al., 2015).
+This file provides a codebook to the analysis the Human Activity Recognition Using Smartphones Data Set (Anguita et al., 2013) to provide a tidy data set satisfying the Course requirements of *Getting and Cleaning Data* (Leek et al., 2015).
+
+This file contains the following sections:
+* Study design and data processing
+* Steps in creating the tidy data file
+* Data dictionary
 
 ##Study Design and Data Processing
-The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz (Reyes-Ortiz et al., 2012).  
+Experiments were conducted using a group of 30 volunteers between the ages of 19-48. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Its embedded accelerometer and gyroscope were used to capture 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz (Reyes-Ortiz et al., 2012).  
 
-The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain (Reyes-Ortiz et al., 2012). 
+Accelerometer and gyroscope signals were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force was assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain (Reyes-Ortiz et al., 2012). 
 
-Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). 
+The body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). The magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain signals)” (Anguita et al., 2013).
 
-Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain signals)” (Anguita et al., 2013).
+##Accessing the tidy data
+###Viewing the tidy data file
+The file *run_analysis.R* contains code describing the function *run_analysis()*.  Executing this function will download the data, convert it to a tidy version and save the result in a file called *TidySmartphoneData*.
 
-##Creating the tidy datafile
+###Steps in creating the tidy data file
+The *run_analysis()* function detailed in the run_analysis.R file undertaides the following basic steps 
+1. Downloads and extracts the [data repository](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip).
+2. Merges the training and test subsets to create a unified data set, and extracts only results for mean and standard deviation.
+3. Summarises this data in a tidy format and saves it in a separate file (*TidySmartphoneData.txt*)
 
-###Guide to create the tidy data file
-1. Download and extract the [data repository](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip).
-2. From this data merge the training and test subsets to create a unified data set, and extract only the columns containing results for mean and standard deviation.
-3. Summarise the data in a tidy format.
-4. Write this data to a separate file (*TidySmartphoneData.txt*)
-
-More detailed instructions on the transformation are contained in the Readme.md file.
+More detailed instructions on the transformation process are contained in the Readme.md file.
 
 ##Data Dictionary
 ###Subject 

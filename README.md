@@ -3,11 +3,11 @@
 This file provides a information relating to process of converting the Human Activity Recognition Using Smartphones Data Set (Anguita et al., 2013) into a tidy data set which satisfies the course requirements of *Getting and Cleaning Data* Course Project (Leek et al., 2015).
 
 This file contains the following sections:
-* Contents of this repository
-* [About the tidy data set](#About-the-tidy-data-set)
-* Looking at the data
-* Verifying the data conversion
-* How the run_analysis() script works
+* [Contents of this repository](#contents-of-this-repository)
+* [About the tidy data set](#about-the-tidy-data-set)
+* [Looking at the data](#looking-at-the-data)
+* [Verifying the data conversion](#verifying-the-data-conversion)
+* [How the run_analysis() script works](#how-the-run_analysis()-script-works)
 
 ##Contents of this repository
 This repository includes the following files:

@@ -5,6 +5,8 @@ This file contains the following sections:
 * [Study design and data processing](#study-design-and-data-processing)
 * [Accessing the tidy data](#accessing-the-tidy-data) 
     * Viewing the tidy data file
+    * Verifying the data conversion
+    * Steps in creating the tidy data set
 * [Data dictionary](#data-dictionary)
 
 ##Study Design and Data Processing
@@ -24,6 +26,7 @@ The file *run_analysis.R* contains code describing the function *run_analysis()*
 
 ###Steps in creating the tidy data set
 The *run_analysis()* function detailed in the run_analysis.R file undertakes the following basic steps: 
+
 1.  Downloads and extracts the [data repository](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip).
 2.  Merges the training and test subsets to create a unified data set, and extracts only results for mean and standard deviation.
 3.  Summarises this data in a tidy format and saves the output in a separate file (*TidySmartphoneData.txt*)

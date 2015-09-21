@@ -7,7 +7,7 @@ This file contains the following sections:
 * [About the tidy data set](#about-the-tidy-data-set)
 * [Looking at the data](#looking-at-the-data)
 * [Verifying the data conversion](#verifying-the-data-conversion)
-* [How the run_analysis() script works](#how-the-run_analysis()-script-works)
+* [How the run_analysis() script works](#how-the-run_analysis-script-works)
 
 ##Contents of this repository
 This repository includes the following files:

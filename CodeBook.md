@@ -1,9 +1,9 @@
 #Code Book
-This file provides a codebook to the analysis the Human Activity Recognition Using Smartphones Data Set (Anguita et al., 2013) to provide a tidy data set satisfying the Course requirements of *Getting and Cleaning Data* (Leek et al., 2015).
+This file provides a codebook for converting the Human Activity Recognition Using Smartphones Data Set (Anguita et al., 2013) into a tidy data set which satisfies the course requirements of *Getting and Cleaning Data* Course Project (Leek et al., 2015).
 
 This file contains the following sections:
 * Study design and data processing
-* Steps in creating the tidy data file
+* Accessing the tidy data 
 * Data dictionary
 
 ##Study Design and Data Processing
@@ -15,15 +15,19 @@ The body linear acceleration and angular velocity were derived in time to obtain
 
 ##Accessing the tidy data
 ###Viewing the tidy data file
+The tidy data set is a tab-delimited text file which can be loaded by many programs.  Within an R scripting environment it can be loaded using the command:
+`read.table(file="myTidyData.txt", header=TRUE, sep=" ")`
+
+###Verifying the data conversion
 The file *run_analysis.R* contains code describing the function *run_analysis()*.  Executing this function will download the data, convert it to a tidy version and save the result in a file called *TidySmartphoneData*.
 
-###Steps in creating the tidy data file
-The *run_analysis()* function detailed in the run_analysis.R file undertaides the following basic steps 
+###Steps in creating the tidy data set
+The *run_analysis()* function detailed in the run_analysis.R file undertakes the following basic steps 
 1. Downloads and extracts the [data repository](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip).
 2. Merges the training and test subsets to create a unified data set, and extracts only results for mean and standard deviation.
-3. Summarises this data in a tidy format and saves it in a separate file (*TidySmartphoneData.txt*)
+3. Summarises this data in a tidy format and saves the output in a separate file (*TidySmartphoneData.txt*)
 
-More detailed instructions on the transformation process are contained in the Readme.md file.
+More detailed instructions on the transformation process are contained in [Readme.md](Readme.md).
 
 ##Data Dictionary
 ###Subject 

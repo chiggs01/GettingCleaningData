@@ -1,14 +1,11 @@
-## This script returns a tidy data set showing the average and 
-## standard deviation for each measurement taken on a number of subjects
-## performing a range of activities.  The data was initially collected  
-## from the accelerometers from the Samsung Galaxy S smartphone. A full  
-## description is available at the site where the data was obtained:
-## http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
-## The data extracted from this archive should be placed in the same directory
-## as the script, along with the file "featureColumns.csv" which identifies the
-## selected measurements.  This file can be edited to alter the measurements 
-## analysed.
-
+## This script downloads the UCI HAR Dataset and returns a tidy data set 
+## showing the average and standard deviation for each measurement taken 
+## for a number of subjects performing a range of activities.  The data was
+## collected using the Samsung Galaxy S smartphone. 
+## 
+## A full description of the readings is provided in the CodeBook.md while 
+## information about the transformations performed by this script are
+## contained in Readme.md.
 
 run_analysis <- function() {
     
@@ -18,11 +15,11 @@ run_analysis <- function() {
     
     # Download and uncompressed data from Internet 
     if(!file.exists("UCI HAR Dataset")) {
-        temp <- tempfile()
+        myTemp <- tempfile()
         download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
-                    temp)
-        unzip(temp, overwrite = TRUE)
-        unlink(temp)
+                      myTemp)
+        unzip(myTemp, overwrite = TRUE)
+        unlink(myTemp)
     }
     # Merge the training and test sets to create a unified data set
     myData <- rbind(read.table("UCI HAR Dataset/train/X_train.txt", 
@@ -45,7 +42,7 @@ run_analysis <- function() {
     myData <- myData[, myColumns]
     
     # Label the data set with descriptive variable names, adding Activities
-    # and Subject variables
+    # and Subject variables within the data set
     names(mySubjects)[1] <- "Subject"
     names(myActivities)[1] <- "Activity"
     names(myData)<-colTitles[myColumns, 2]
@@ -56,7 +53,7 @@ run_analysis <- function() {
     myData <- aggregate(myData, list(myData$Subject, myData$Activity), mean)
     myData <- myData[-c(1:2)]
     
-    # Tag measurements as either mean or standard deviation for tidying
+    # Tag measurements as either mean or standard deviation for later tidying
     colTitles <- names(myData)
     for (i in 1:length(colTitles)) {
         if (str_detect(colTitles[i], "mean()")) {
@@ -71,13 +68,12 @@ run_analysis <- function() {
     
     # create an independent tidy data set 
     myTidyData <- gather(myData, key = measurement, value = result,  
-                -c(Subject, Activity))
+                -c(Subject, Activity)) 
     myTidyData <- separate(myTidyData, measurement, into = c("Measurement", 
-                "reading"), sep = "\\.")
+                "reading"), sep = "\\.") 
     myTidyData <- spread(myTidyData, key = reading, value = result)
     
     # Use descriptive activity names for activities in the data set 
-    # Note: Added after gather process to avoid error
     myLabels <- read.table("UCI HAR Dataset/activity_labels.txt")
     myTidyData$Activity <- myLabels[myTidyData$Activity, 2]
     

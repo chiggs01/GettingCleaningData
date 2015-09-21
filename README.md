@@ -3,13 +3,13 @@
 This file provides a information relating to process of converting the Human Activity Recognition Using Smartphones Data Set (Anguita et al., 2013) into a tidy data set which satisfies the course requirements of *Getting and Cleaning Data* Course Project (Leek et al., 2015).
 
 This file contains the following sections:
-* Contents of the GettingCleaningData repository
-* About the tidy data set
+* Contents of this repository
+* [About the tidy data set](#About-the-tidy-data-set)
 * Looking at the data
 * Verifying the data conversion
 * How the run_analysis() script works
 
-##Contents of the GettingCleaningData repository
+##Contents of this repository
 This repository includes the following files:
 * **Readme.md** - this file, containing information relating to the repository. It describes the tidy data set and explains the setps used to derive it.
 * **TidySmartphoneData.txt** - a tab delimited version of the tidy dataset. Instructions on how to read this file are provided below.
@@ -23,7 +23,7 @@ Data measurements are generally summarised using both the mean (as a measure of 
 
 The tidy data set in this repository recognises the relationship between mean and standard deviation within these grouped measurements and separates the results into two distinct columns.  The result is a true tidy data set which pairs the mean and standard deviation with the reading for each subject and activity.
 
-Further details about the measurements taken are contained in [Codebook.md](Codebook.md)
+Further details about the measurements taken are contained in [Codebook.md](CodeBook.md)
 
 ##Looking at the data
 The tidy data set is a tab-delimited text file which can be loaded by many programs.  Within an R scripting environment it can be loaded using the command:
@@ -34,18 +34,19 @@ The file *run_analysis.R* contains code describing the function *run_analysis()*
 
 ##How the run_analysis() script works
 The run_analysis() function performs the following basic steps:
-1. Load the *stringr* and *tidyr* libraries
-2. Check to see if the data is available for transforming.  If not available, download the compressed [UCI HAR Dataset](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) to a temporary file (*myTemp*), uncompress/extract the data to the current working directory, and delete the temporary file.
-3. Load and merge elements from the training and test subsets to create unified versions of the experimental data (*myData*), as well as subject (*mySubjects*) and activity (*myActivities*) indexes.
-4. Load the measurements features used in the experiment and parse these to identify which measurements relate to records of mean and standard deviation. Use this information to extract only the relevant columns from the data set.
-5. Provide  descriptive labels for all columns, and merge this data with the subject and activity indexes.
-6. Aggregate the data to provide an average response for each measurement grouped by activity and subject.
-7. Modify category names to clearly differentiate records identifying a mean or standard deviation result and remove "mean()" and "std()" from the middle of measurement labels. 
-8. Gather all the measurement variables into a single column to create a tidy data set (*myTidyData*) using the long format.
-9. Separate the measurement name from the data method (ie. mean or std) using the tags developed in step 7.
-10. Use the newly created "data method" to spread the measurement values across separate columns of "Mean" and "Standard_Deviation" for each combination of subject and activity.
-11. Substitute descriptive activity names for activities within the data set.
-12. Write the tidy data set to a separate file (*TidySmartphoneData.txt*)
+
+1.  Load the *stringr* and *tidyr* libraries
+2.  Check to see if the data is available for transforming.  If not available, download the compressed [UCI HAR Dataset](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) to a temporary file (*myTemp*), uncompress/extract the data to the current working directory, and delete the temporary file.
+3.  Load and merge elements from the training and test subsets to create unified versions of the experimental data (*myData*), as well as subject (*mySubjects*) and activity (*myActivities*) indexes.
+4.  Load the measurements features used in the experiment and parse these to identify which measurements relate to records of mean and standard deviation. Use this information to extract only the relevant columns from the data set.
+5.  Provide  descriptive labels for all columns, and merge this data with the subject and activity indexes.
+6.  Aggregate the data to provide an average response for each measurement grouped by activity and subject.
+7.  Modify category names to clearly differentiate records identifying a mean or standard deviation result and remove "mean()" and "std()" from the middle of measurement labels. 
+8.  Gather all the measurement variables into a single column to create a tidy data set (*myTidyData*) using the long format.
+9.  Separate the measurement name from the data method (ie. mean or std) using the tags developed in step 7.
+10.  Use the newly created "data method" to spread the measurement values across separate columns of "Mean" and "Standard_Deviation" for each combination of subject and activity.
+11.  Substitute descriptive activity names for activities within the data set.
+12.  Write the tidy data set to a separate file (*TidySmartphoneData.txt*)
 
 
 ##References:

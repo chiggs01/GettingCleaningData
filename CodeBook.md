@@ -2,9 +2,10 @@
 This file provides a codebook for converting the Human Activity Recognition Using Smartphones Data Set (Anguita et al., 2013) into a tidy data set which satisfies the course requirements of *Getting and Cleaning Data* Course Project (Leek et al., 2015).
 
 This file contains the following sections:
-* Study design and data processing
-* Accessing the tidy data 
-* Data dictionary
+* [Study design and data processing](#study-design-and-data-processing)
+* [Accessing the tidy data](#accessing-the-tidy-data) 
+    * Viewing the tidy data file
+* [Data dictionary](#data-dictionary)
 
 ##Study Design and Data Processing
 Experiments were conducted using a group of 30 volunteers between the ages of 19-48. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Its embedded accelerometer and gyroscope were used to capture 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz (Reyes-Ortiz et al., 2012).  
@@ -19,15 +20,15 @@ The tidy data set is a tab-delimited text file which can be loaded by many progr
 `read.table(file="myTidyData.txt", header=TRUE, sep=" ")`
 
 ###Verifying the data conversion
-The file *run_analysis.R* contains code describing the function *run_analysis()*.  Executing this function will download the data, convert it to a tidy version and save the result in a file called *TidySmartphoneData*.
+The file *run_analysis.R* contains code describing the function *run_analysis()*.  Executing this function will download the data, convert it to a tidy version and save the result in a file called *TidySmartphoneData.txt*. This can be compared the the [TidySmartphoneData.txt](TidySmartphoneData.txt) in this repository.
 
 ###Steps in creating the tidy data set
-The *run_analysis()* function detailed in the run_analysis.R file undertakes the following basic steps 
-1. Downloads and extracts the [data repository](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip).
-2. Merges the training and test subsets to create a unified data set, and extracts only results for mean and standard deviation.
-3. Summarises this data in a tidy format and saves the output in a separate file (*TidySmartphoneData.txt*)
+The *run_analysis()* function detailed in the run_analysis.R file undertakes the following basic steps: 
+1.  Downloads and extracts the [data repository](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip).
+2.  Merges the training and test subsets to create a unified data set, and extracts only results for mean and standard deviation.
+3.  Summarises this data in a tidy format and saves the output in a separate file (*TidySmartphoneData.txt*)
 
-More detailed instructions on the transformation process are contained in [Readme.md](Readme.md).
+More detailed instructions on the transformation process are contained in [README.md](README.md).
 
 ##Data Dictionary
 ###Subject 

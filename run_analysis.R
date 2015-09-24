@@ -51,7 +51,7 @@ run_analysis <- function() {
     # Determine the average of each variable grouped by activity and
     # subject, deleting duplicate columns
     myData <- aggregate(myData, list(myData$Subject, myData$Activity), mean)
-    myData <- myData[-c(1:2)]
+    myData <- myData[-c(1:2)] 
     
     # Tag measurements as either mean or standard deviation for later tidying
     colTitles <- names(myData)
@@ -70,8 +70,8 @@ run_analysis <- function() {
     myTidyData <- gather(myData, key = measurement, value = result,  
                 -c(Subject, Activity)) 
     myTidyData <- separate(myTidyData, measurement, into = c("Measurement", 
-                "reading"), sep = "\\.") 
-    myTidyData <- spread(myTidyData, key = reading, value = result)
+                "data.aspect"), sep = "\\.") 
+    myTidyData <- spread(myTidyData, key = data.aspect, value = result)
     
     # Use descriptive activity names for activities in the data set 
     myLabels <- read.table("UCI HAR Dataset/activity_labels.txt")

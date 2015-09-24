@@ -48,8 +48,8 @@ This character/ordinal field describes the type of activity undertaken by the su
 * LAYING
 
 ###Measurement
-This character-based field was derived from the measurements types in the raw data which contain a mean and standard deviation. No units were given for the measurements.
-The values used in this data set are:
+This character-based field identifies the type of data obtained from the Smartphone's internal gyroscope and accelerometer.  The list was derived from the measurements types within the raw data containing either a mean and standard deviation. No units were provided for the measurements.
+The values contained in this data set are:
 * fBodyAcc-X
 * fBodyAcc-Y
 * fBodyAcc-Z
@@ -85,11 +85,11 @@ The values used in this data set are:
 * tGravityAccMag
 
 ###Mean 
-The grand mean of all readings related to a particular measurement for each subject on a per activity basis.
+The average mean of all data readings corresponding to a particular measurement, subject, and activity.
 * numeric/continuous data
 
 ###Standard_Deviation
-The mean standard deviation for all readings related to a particular measurement for each subject on a per activity basis.
+The average standard deviation of all data readings corresponding to a particular measurement, subject, and activity.
 * numeric/continuous data
 
 ##References:

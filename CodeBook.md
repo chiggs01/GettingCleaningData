@@ -12,7 +12,7 @@ This file contains the following sections:
 ##Study Design and Data Processing
 Experiments were conducted using a group of 30 volunteers between the ages of 19-48. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Its embedded accelerometer and gyroscope were used to capture 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz (Reyes-Ortiz et al., 2012).  
 
-Accelerometer and gyroscope signals were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force was assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain (Reyes-Ortiz et al., 2012). 
+Accelerometer readings are measured in gravity units, while gyroscope readings are measured in radians per second.  Accelerometer and gyroscope signals were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force was assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain (Reyes-Ortiz et al., 2012). 
 
 The body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). The magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain signals)” (Anguita et al., 2013).
 
@@ -28,10 +28,10 @@ The file *run_analysis.R* contains code describing the function *run_analysis()*
 The *run_analysis()* function detailed in the run_analysis.R file undertakes the following basic steps: 
 
 1.  Downloads and extracts the [data repository](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip).
-2.  Merges the training and test subsets to create a unified data set, and extracts only results for mean and standard deviation.
+2.  Merges the training and test subsets to create a unified data set, and extracts only measurements containing a mean and standard deviation.
 3.  Summarises this data in a tidy format and saves the output in a separate file (*TidySmartphoneData.txt*)
 
-More detailed instructions on the transformation process are contained in [README.md](README.md).
+A more detailed account of the transformation process is contained in [README.md](README.md).
 
 ##Data Dictionary
 ###Subject 
@@ -39,7 +39,7 @@ This numeric/integer field is used to identify participants from of a group of 3
 *	Unique identifier 0..30
 
 ###Activity
-This character/ordinal field describes the type of activity undertaken by the subject.  Six different activities were performed:
+This character/ordinal field describes the type of activity undertaken by the subject.  The six different activities performed are:
 * WALKING	
 * WALKING_UPSTAIRS   
 * WALKING_DOWNSTAIRS
@@ -48,8 +48,8 @@ This character/ordinal field describes the type of activity undertaken by the su
 * LAYING
 
 ###Measurement
-This character-based field identifies the type of data obtained from the Smartphone's internal gyroscope and accelerometer.  The list was derived from the measurements types within the raw data containing either a mean and standard deviation. No units were provided for the measurements.
-The values contained in this data set are:
+This character-based field identifies the type of data obtained from the Smartphone's internal gyroscope and accelerometer.  The list was derived from measurements types within the raw data characterised by a mean and standard deviation. Further details about these variables are contained in the [Study design and data processing](#study-design-and-data-processing) section.
+The measuerments recorded are:
 * fBodyAcc-X
 * fBodyAcc-Y
 * fBodyAcc-Z
@@ -85,11 +85,11 @@ The values contained in this data set are:
 * tGravityAccMag
 
 ###Mean 
-The average mean of all data readings corresponding to a particular measurement, subject, and activity.
+The average mean of all data readings corresponding to a particular measurement, subject, and activity. This value has been normalised between -1 and 1 and thus has no units.
 * numeric/continuous data
 
 ###Standard_Deviation
-The average standard deviation of all data readings corresponding to a particular measurement, subject, and activity.
+The average standard deviation of all data readings corresponding to a particular measurement, subject, and activity. This value has been normalised between -1 and 1 and thus has no units.
 * numeric/continuous data
 
 ##References:
